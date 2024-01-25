@@ -1,6 +1,9 @@
-import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
-
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      pexelsApiKey: ''
+    }
+  },
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
   postcss: {
