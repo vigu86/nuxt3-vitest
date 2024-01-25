@@ -29,7 +29,7 @@
       </article>
     </section>
 
-    <SectionImages />
+    <SectionImages :filters="['people', 'animals', 'city']" />
   </main>
 </template>
 

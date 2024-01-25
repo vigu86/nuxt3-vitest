@@ -4,15 +4,14 @@
 
       <div class="mt-4 flex gap-4">
         <BaseButton
-          v-for="(filter, index) in [
-            'People', 'Animals'
-          ]"
+          v-for="(filter, index) in filters"
           @click="() => selectedIndex = index">{{ filter  }}
         </BaseButton>
       </div>
 
         <div class="mt-4 grid gap-4 grid-cols-3" v-if="photos">
           <p v-if="pending">Loading Photos....</p>
+          <p v-else-if="error">Error fetching photos!</p>
           <img
             v-else
             v-for="photo in photos.photos"
@@ -35,14 +34,12 @@ const props = defineProps({
   }
 })
 
-const runtimeConfig = useRuntimeConfig()
-const client = createClient(runtimeConfig.public.pexelsApiKey as string);
+const client = createClient(useRuntimeConfig().public.pexelsApiKey as string);
 
 const selectedIndex = ref(0)
-const OPTIONS = ['people', 'animals'] as const
 
 const {data: photos, pending, refresh, error} = useAsyncData<PhotosWithTotalResults, ErrorResponse>('photos', () => {
-  return client.photos.search({ orientation: 'landscape', query: OPTIONS[selectedIndex.value] }) as Promise<PhotosWithTotalResults>
+  return client.photos.search({ orientation: 'landscape', query: props.filters[selectedIndex.value] }) as Promise<PhotosWithTotalResults>
 })
 
 watch(selectedIndex, () => refresh())
