@@ -2,7 +2,7 @@
   <component
     :is="to ? NuxtLink : 'button'"
     :to="to"
-    class="border rounded-sm hover:!bg-slate-300 px-3 py-2 [&.router-link-active]:bg-slate-200"
+    class="inline-block border rounded-sm hover:!bg-slate-300 px-3 py-2 [&.router-link-active]:bg-slate-200"
   >
     <slot />
   </component>
