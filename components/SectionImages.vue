@@ -15,7 +15,7 @@
           <p v-else-if="testError">Error fetching photos!</p>
           <img
             v-else
-            v-for="photo in photos.photos"
+            v-for="photo in photos.photos.slice(0,12)"
             :src="photo.src.small"
             :alt="photo.alt || ''"
             class="aspect-square object-cover"
@@ -27,7 +27,8 @@
 
 <script setup lang="ts">
 import { createClient, type PhotosWithTotalResults, type ErrorResponse, type Photo  } from 'pexels';
-const BaseButton = resolveComponent('BaseButton')
+// const BaseButton = resolveComponent('BaseButton')
+import BaseButton from './BaseButton.vue';
 
 const props = defineProps({
   filters: {

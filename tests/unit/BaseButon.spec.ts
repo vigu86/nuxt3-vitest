@@ -1,6 +1,6 @@
 import { test, expect } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import { BaseButton } from '#components'
+import BaseButton from '~/components/BaseButton.vue'
 
 const TEXT = 'Learn more'
 const PAGE = 'faq'

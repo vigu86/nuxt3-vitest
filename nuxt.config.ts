@@ -4,6 +4,9 @@ export default defineNuxtConfig({
       pexelsApiKey: ''
     }
   },
+  components: {
+    dirs: []
+  },
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
   postcss: {

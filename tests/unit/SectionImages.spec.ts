@@ -1,13 +1,43 @@
 import { test, expect, describe, expectTypeOf, vi } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import { SectionImages } from '#components'
+// import { SectionImages } from '#components'
+import SectionImages from '~/components/SectionImages.vue'
 
 const FILTERS = ['people', 'animals']
 const wrapper = await mountSuspended(SectionImages, {
   props: {
     filters: FILTERS
-  }
+  },
 })
+
+// Mock the Pexels library createClient function
+vi.mock('pexels', () => {
+  return {
+    createClient: vi.fn(() => ({
+      photos: {
+        search: vi.fn(() => Promise.resolve({
+          photos: [
+            { src: {  small: 'test src #1' }, alt: 'test alt #1'},
+            { src: {  small: 'test src #2' }, alt: 'test alt #2'},
+            { src: {  small: 'test src #3' }, alt: 'test alt #3'},
+            { src: {  small: 'test src #4' }, alt: 'test alt #4'},
+            { src: {  small: 'test src #5' }, alt: 'test alt #5'},
+            { src: {  small: 'test src #6' }, alt: 'test alt #6'},
+            { src: {  small: 'test src #7' }, alt: 'test alt #7'},
+            { src: {  small: 'test src #8' }, alt: 'test alt #8'},
+            { src: {  small: 'test src #9' }, alt: 'test alt #9'},
+            { src: {  small: 'test src #10' }, alt: 'test alt #10'},
+            { src: {  small: 'test src #11' }, alt: 'test alt #11'},
+            { src: {  small: 'test src #12' }, alt: 'test alt #12'},
+            { src: {  small: 'test src #13' }, alt: 'test alt #13'},
+            { src: {  small: 'test src #14' }, alt: 'test alt #14'},
+            { src: {  small: 'test src #15' }, alt: 'test alt #15'},
+          ]
+        })),
+      },
+    })),
+  };
+});
 
 test('Renders filters', async () => {
   await wrapper.vm.$nextTick();
@@ -23,7 +53,7 @@ test('Renders images', async () => {
   await wrapper.vm.$nextTick();
   const images = wrapper.findAll('[data-test="section-images-image"]')
   console.log('images', images.map(image => image.attributes().src))
-  expect(images.length).toBe(15)
+  expect(images.length).toBe(12)
   images.forEach(image => {
     const { src, alt } = image.attributes()
 
